@@ -54,12 +54,13 @@
                     while($row = $rezultaty->fetch_row()){
                         $data = new DateTime($row[2]);    
                         if($data->format('Y-m-d H:i:s')<date('Y-m-d H:i:s'))
-                            echo '<tr style="background-color:red"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td><input type="checkbox" name='.$row[3].' value = "utylizuj"></td></tr>';
+                            echo '<tr style="background-color:red"><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td><input type="checkbox" name='.$row[3].' value = "utylizacja"></td></tr>';
                         else{
-                            echo '<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td><input type="checkbox"  name='.$row[3].' value = "usun"></td></tr>';
+                            echo '<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td><td><input type="checkbox"  name='.$row[3].' value = "usuniecie"></td><td><input type="checkbox"  name=zazyj'.$row[3].' value = "zazycie"></td></tr>';
                         }
                     }
-                    echo '<input type="submit" value="Usun/Utylizuj">';
+                    echo '<input type="submit" name = "action" value="Usun/Utylizuj">';
+                    echo '<input type="submit" name = "action" value="Zażyj">';
                     echo '</form>';
                 }
                 $rezultaty->free_result();
