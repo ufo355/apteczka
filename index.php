@@ -5,7 +5,7 @@
         header('Location: apteczka.php');
         exit();
     }
-    include 'nagl.php';
+    include 'apteczka/include/nagl.php';
 ?>
 <?php
     if(isset($_SESSION['udanaRejestracja']))
@@ -32,5 +32,5 @@
 </form>
 <a href = "rejestracja.php">Zarejestruj sie</a>
 <?php
-    include 'stopka.php';   
+    include 'apteczka/include/stopka.php';   
 ?>

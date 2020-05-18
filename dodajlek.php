@@ -20,7 +20,7 @@
         $datawaznosci = $_POST['datawaznosci'];
         $data = date('Y-m-d H:i:s');
         unset($_POST['leki']);
-        require_once "connect.php";
+        require_once "apteczka/include/connect.php";
         mysqli_report(MYSQLI_REPORT_STRICT);
         try{
             $polaczenie = new mysqli($host, $db_user,$db_password, $db_name);
@@ -44,7 +44,7 @@
         }
     }
 
-    include 'nagl.php';
+    include 'apteczka/include/nagl.php';
 ?>
 
 
@@ -55,7 +55,7 @@
     <select id="leki" name = "leki">
 
     <?php
-        require_once 'connect.php';
+        require_once 'apteczka/include/connect.php';
         mysqli_report(MYSQLI_REPORT_STRICT);
 
         try{  
@@ -87,7 +87,7 @@
     <select id="apteczka" name = "apteczka">
 
     <?php
-        include 'wyswietlapteczki.php';
+        include 'apteczka/include/wyswietlapteczki.php';
     ?>
 
     </select> 
@@ -107,7 +107,7 @@
 <a href = 'menu.php'>Wróć do menu</a><br>
 <a href = 'logout.php'>Wyloguj</a>
 <?php
-    include 'stopka.php';
+    include 'apteczka/include/stopka.php';
 ?>
 
 

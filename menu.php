@@ -7,7 +7,7 @@
         exit();
     }
     $zalogowany = $_SESSION['zalogowany'];
-    include 'nagl.php';
+    include 'apteczka/include/nagl.php';
 ?>
 
 <a href = 'dodajlek.php'>Dodaj lek</a><br>
@@ -16,7 +16,7 @@
 <a href = 'zezwol.php'>Zapros innego uzytkownika do korzystania z twojej apteczki</a><br>
 <a href = 'logout.php'>Wyloguj</a>
 <?php
-    include 'stopka.php';
+    include 'apteczka/include/stopka.php';
 ?>
 
 

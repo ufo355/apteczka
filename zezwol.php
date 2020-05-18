@@ -12,7 +12,7 @@
 
         $email = $_POST['email'];
         unset($_POST['email']);      
-        require_once "connect.php";
+        require_once "apteczka/include/connect.php";
         try{
             $polaczenie = new mysqli($host, $db_user, $db_password, $db_name);
             if($polaczenie->connect_errno!=0){
@@ -50,7 +50,7 @@
     }
 
 
-    include 'nagl.php';
+    include 'apteczka/include/nagl.php';
     if(isset($_SESSION['bladWyszukania']))
     {
         echo $_SESSION['bladWyszukania'];
@@ -68,7 +68,7 @@
     <select id="apteczka" name = "apteczka">
 
     <?php
-        require_once 'connect.php';
+        require_once 'apteczka/include/connect.php';
         mysqli_report(MYSQLI_REPORT_STRICT);
 
         try{  
@@ -101,5 +101,5 @@
 <a href = 'logout.php'>Wyloguj</a>
 
 <?php
-    include 'stopka.php';
+    include 'apteczka/include/stopka.php';
 ?>

@@ -7,7 +7,7 @@
       exit();
   }
   $zalogowany = $_SESSION['zalogowany'];
-  include 'nagl.php';
+  include 'apteczka/include/nagl.php';
 ?>
 
 
@@ -17,7 +17,7 @@
         <select id="apteczka" name = "apteczka">
 
         <?php
-            include 'wyswietlapteczki.php';
+            include 'apteczka/include/wyswietlapteczki.php';
         ?>
 
     </select> 
@@ -36,7 +36,7 @@
         }
         $_SESSION['id_apteczki'] = $id_apteczki;
         echo '<table><tr><th>Nazwa leku</th><th>Cena</th><th>Data ważności</th></tr>';
-        require_once 'connect.php';
+        require_once 'apteczka/include/connect.php';
         mysqli_report(MYSQLI_REPORT_STRICT);
 
         try{  
@@ -83,5 +83,5 @@
 <a href = 'menu.php'>Wróć do menu</a><br>
 <a href = 'logout.php'>Wyloguj</a>
 <?php
-    include 'stopka.php';
+    include 'apteczka/include/stopka.php';
 ?>
