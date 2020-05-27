@@ -2,21 +2,22 @@
     session_start();
     if(!isset($_SESSION['zalogowany']))
     {
-        $_SESSION['bladLogowania'] = "Najpierw sie zaloguj ;)";
+        $_SESSION['bladLogowania'] = '<div class="alert alert-danger" role="alert">Najpierw sie zaloguj ;)</div>';
         header('Location: index.php');
         exit();
     }
     $zalogowany = $_SESSION['zalogowany'];
-    include 'apteczka/include/nagl.php';
+    include 'include/nagl.php';
 ?>
-
-<a href = 'dodajlek.php'>Dodaj lek</a><br>
-<a href = 'stan.php'>Sprawdź stan apteczki</a><br>
-<a href = 'raport.php'>Wygeneruj raport</a><br>
-<a href = 'zezwol.php'>Zapros innego uzytkownika do korzystania z twojej apteczki</a><br>
-<a href = 'logout.php'>Wyloguj</a>
+<ul class="list-group">
+    <li class="list-group-item"><a href = 'dodajlek.php'>Dodaj lek</a></li>
+    <li class="list-group-item"><a href = 'stan.php'>Sprawdź stan apteczki</a></li>
+    <li class="list-group-item"><a href = 'historia.php'>Śledź historię leków</a></li>
+    <li class="list-group-item"><a href = 'zezwol.php'>Zapros innego uzytkownika do korzystania z twojej apteczki</a></li>
+    <li class="list-group-item"><a href = 'logout.php'>Wyloguj</a></li>
+</ul>
 <?php
-    include 'apteczka/include/stopka.php';
+    include 'include/stopka.php';
 ?>
 
 

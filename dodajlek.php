@@ -20,7 +20,7 @@
         $datawaznosci = $_POST['datawaznosci'];
         $data = date('Y-m-d H:i:s');
         unset($_POST['leki']);
-        require_once "apteczka/include/connect.php";
+        require_once "include/connect.php";
         mysqli_report(MYSQLI_REPORT_STRICT);
         try{
             $polaczenie = new mysqli($host, $db_user,$db_password, $db_name);
@@ -44,18 +44,19 @@
         }
     }
 
-    include 'apteczka/include/nagl.php';
+    include 'include/nagl.php';
 ?>
 
 
 <form method = 'post'>
 
-    <label for="leki">Wybierz lek:</label>
-
-    <select id="leki" name = "leki">
+    <div class ="form-group row">
+        <label for="leki">Wybierz lek: </label>
+        <select id="leki" name = "leki">
+    
 
     <?php
-        require_once 'apteczka/include/connect.php';
+        require_once 'include/connect.php';
         mysqli_report(MYSQLI_REPORT_STRICT);
 
         try{  
@@ -81,33 +82,52 @@
         
     ?>
     </select>
-    <br>
+    </div>
 
-     <label for="apteczka">Wybierz apteczke do ktorej chcesz dodac lek:</label>
-    <select id="apteczka" name = "apteczka">
+    <div class ="form-group row">
+        <div class="form-group col-md-6">
+            <label for="apteczka">Wybierz apteczkę lub <a class="text-decoration-none" href = "dodajapteczke.php">stwórz nową</a></label>
+            <select id="apteczka" name = "apteczka">
 
-    <?php
-        include 'apteczka/include/wyswietlapteczki.php';
-    ?>
+            <?php
+                include 'include/wyswietlapteczki.php';
+            ?>
 
-    </select> 
-    <br>
-        <label>
-        Wprowadz date waznosci:
-        <input type="date" name="datawaznosci">
-        </label>
-    <br>
-    Cena za sztukę: <input type="number" name="cena" min = "0.00" value = "0.00" step="0.01">
-    <br>
-    Ilość: <input type="number" name="ilosc" min = "1" value = "0" step="1">
-    <br>
-    <input type="submit" value = "Dodaj lek do apteczki">    
+            </select> 
+        </div>
 
+        <div class="form-group col-md-6">
+            <label>
+            Wprowadź date ważności:
+            <input type="date" name="datawaznosci">
+            </label>
+        </div>
+
+    </div>
+
+    <div class ="form-group row">
+        <div class="form-group col-md-6">
+            <label for="cenazasztuke">Cena za sztukę</label>
+            <input id = "cenazasztuke" type="number" name="cena" min = "0.00" value = "0.00" step="0.01">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="ilosc">Ilość</label>
+            <input id = "ilosc" type="number" name="ilosc" min = "1" value = "0" step="1">
+        </div>
+    </div>
+
+    <div class ="form-group row">
+        <div class="form-group col-md-4 my-auto">
+            <input class = "btn btn-primary btn-block" type="submit" value = "Dodaj lek do apteczki">   
+        </div>
+    </div> 
+    <div class ="form-group row">
+        <button type="button" class="btn btn-outline-primary"><a href = 'menu.php'>Powrót</a></button>
+        <button type="button" class="btn btn-outline-primary"><a href = 'logout.php'>Wyloguj</a></button>
+    </div> 
 </form>
-<a href = 'menu.php'>Wróć do menu</a><br>
-<a href = 'logout.php'>Wyloguj</a>
 <?php
-    include 'apteczka/include/stopka.php';
+    include 'include/stopka.php';
 ?>
 
 

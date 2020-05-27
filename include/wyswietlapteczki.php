@@ -1,5 +1,5 @@
 <?php
-        require_once 'apteczka/include/connect.php';
+        require_once 'include/connect.php';
         mysqli_report(MYSQLI_REPORT_STRICT);
 
         try{  

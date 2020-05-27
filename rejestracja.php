@@ -24,50 +24,29 @@
         if(!filter_var($email, FILTER_VALIDATE_EMAIL))
         {
             $wszystkoOK = false;
-            $_SESSION['e_haslo'] = "Niepoprawy email";
+            $_SESSION['e_haslo'] = '<div class="alert alert-danger" role="alert">Niepoprawy email</div>';
         }
 
         //Walidacja hasla
         if(strlen($haslo1)<5 || strlen($haslo1)>=20)
         {
             $wszystkoOK = false;
-            $_SESSION['e_haslo'] = "Haslo powinno liczyc od 5 do 20 znakow";
+            $_SESSION['e_haslo'] = '<div class="alert alert-danger" role="alert">Haslo powinno liczyc od 5 do 20 znakow</div>';
         }
 
 
         if($haslo1!=$haslo2)
         {
             $wszystkoOK = false;
-            $_SESSION['e_haslo'] = "Hasla są różne";
+            $_SESSION['e_haslo'] = '<div class="alert alert-danger" role="alert">Hasla są różne</div>';
         }
 
         $haslo_hash = password_hash($haslo1,PASSWORD_DEFAULT);
 
 
-        //Walidacja checkboxa
-        if(!isset($_POST['regulamin']))
-        {
-            $wszystkoOK = false;
-            $_SESSION['e_regulamin'] = "Musisz zaakceptowac regulamin!";
-        }
-
-
-        //Walidacja recaptchy
-
-        $secretKey = "6LfQhukUAAAAAC3lj_pVKZ_5p5YqVNHxtjbHSwKj";
-        $sprawdz = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secretKey.'&response='.$_POST['g-recaptcha-response']);
-        $odpowiedz = json_decode($sprawdz);
-
-        if($odpowiedz->success==false)
-        {
-            $wszystkoOK = false;
-            $_SESSION['e_recaptcha'] = "Potwierdz ze nie jestes robotem";  
-        }
-
-
 
         //polaczenie z baza
-        require_once "apteczka/include/connect.php";
+        require_once "include/connect.php";
         mysqli_report(MYSQLI_REPORT_STRICT);
         try{
             $polaczenie = new mysqli($host, $db_user,$db_password, $db_name);
@@ -103,40 +82,53 @@
 
        
     }
-    include 'nagl.php';
+    include 'include/nagl.php';
 ?>
-<h2>Zaloguj sie</h2>
 
 <form method = "post">
-    Imie: <br><input type="text" name="imie" placeholder = "imie" required><br>
-    Nazwisko: <br><input type="test" name="nazwisko" placeholder="nazwisko"><br>
-    E-mail: <br><input type="email" name="email" placeholder = "email" required><br>
+    <h1 class="h3 mb-3 font-weight-normal">Rejestracja</h1>
+    <div class ="form-group row">
+        <label for="inputImie" class="sr-only">Imie</label>
+        <input class="form-control" id = "inputImie" type="text" name="imie" placeholder = "Imię" required>
+    </div>
+    <div class ="form-group row">
+    <label for="inputNazwisko" class="sr-only">Nazwisko</label>
+    <input class="form-control" id="inputNazwisko" type="test" name="nazwisko" placeholder="Nazwisko">
+    </div>
+
+    <div class ="form-group row">
+    <label for="inputEmail" class="sr-only">Email</label>
+    <input class="form-control" id = "inputEmail" type="email" name="email" placeholder = "Email" required>
+    </div>
+
     <?php
-       displayError('e_mail');
+        displayError('e_mail');
     ?>
-    Haslo: <br><input type="password" name="haslo1" placeholder = "haslo" required><br>
-    Powtorz haslo: <br><input type="password" name="haslo2" placeholder = "haslo" required><br>
+
+    <div class ="form-group row">
+    <label for="inputPassword1" class="sr-only">Password1</label>
+    <input class="form-control" id = "inputPassword1" type="password" name="haslo1" placeholder = "Hasło" required>
+    </div>
+    <div class ="form-group row">
+    <label for = "inputPassword2" class="sr-only">Password2</label>
+    <input class="form-control" id = "inputPassword2" type="password" name="haslo2" placeholder = "Powtórz hasło" required>
+    </div>
+
     <?php
         displayError('e_haslo');
     ?>
-    <label>
-        <input type="checkbox" name="regulamin">Akceptuję regulamin
-    </label>
-    <br>
-    <?php
-        displayError('e_regulamin');
-    ?>
-    <br>
-    <div class="g-recaptcha" data-sitekey="6LfQhukUAAAAAKdbxp52ox7XoulPIMktv6i_r8Ve"></div>
-    <br>
-    <?php
-        displayError('e_recaptcha');
-    ?>
 
-    <input type="submit" value="Dalej">
+    <div class ="form-group row">
+    <input class = "btn btn-primary btn-block" type="submit" value="Rejestracja">
+    </div>
+
+    <div class = "form-group row">
+        <a class="btn btn-primary btn-block"  href = "index.php">Powrót</a>
+    </div>
+
 </form>
 
 
 <?php
-    include 'stopka.php';   
+    include 'include/stopka.php';   
 ?>

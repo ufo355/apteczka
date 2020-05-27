@@ -8,7 +8,7 @@
     }
     $zalogowany = $_SESSION['zalogowany'];
     $id_apteczki = $_SESSION['id_apteczki'];
-    require_once 'apteczka/include/connect.php';
+    require_once 'include/connect.php';
     try{  
         $polaczenie = new mysqli($host, $db_user,$db_password, $db_name);
         if($polaczenie->connect_errno!=0){

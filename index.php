@@ -2,11 +2,12 @@
     session_start();
     if(isset($_SESSION['zalogowany']))
     {
-        header('Location: apteczka.php');
+        header('Location: menu.php');
         exit();
     }
-    include 'apteczka/include/nagl.php';
+    include 'include/nagl.php';
 ?>
+<div class = "containter">
 <?php
     if(isset($_SESSION['udanaRejestracja']))
     {
@@ -15,7 +16,6 @@
         unset($_SESSION['udanaRejestracja']);
     }
 ?>
-<h2>Zaloguj sie</h2>
 
 <?php
     if(isset($_SESSION['bladLogowania'])){
@@ -25,12 +25,19 @@
         session_unset();
     }
 ?>
-<form action ="zaloguj.php" method = "post">
-    E-mail : <input type="email" name="email" placeholder = "Wpisz swój email" required><br>
-    Hasło : <input type="password" name="haslo" placeholder="wprowadź hasło"><br>
-    <input type="submit" value="Dalej">
-</form>
-<a href = "rejestracja.php">Zarejestruj sie</a>
+<div class = "row">
+    <form class="form-signin" action ="zaloguj.php" method = "post">
+        <img class = "mb-4" src="img/eskulapa.jpg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Zaloguj się</h1>
+        <label for="inputEmail" class="sr-only">Adres Email</label>
+        <input class="form-control" id="inputEmail" type="email" name="email" placeholder="Email">
+        <label for="inputPassword" class="sr-only">Hasło</label>
+        <input class="form-control" id="inputPassword" type="password" name="haslo" placeholder="Hasło">
+        <button class="btn btn-primary btn-block" type="submit">Logowanie</button>
+        <a class="btn btn-primary btn-block"  href = "rejestracja.php">Rejestracja</a>
+    </form>
+</div>
+</div>
 <?php
-    include 'apteczka/include/stopka.php';   
+    include 'include/stopka.php';   
 ?>
