@@ -2,10 +2,10 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Czas generowania: 17 Kwi 2020, 23:25
+-- Host: localhost
+-- Czas generowania: 27 Maj 2020, 14:54
 -- Wersja serwera: 10.4.11-MariaDB
--- Wersja PHP: 7.4.4
+-- Wersja PHP: 7.2.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,10 +37,7 @@ CREATE TABLE `apteczki` (
 --
 
 INSERT INTO `apteczki` (`id_apteczki`, `nazwa_apteczki`) VALUES
-(1, 'Apteczka 1'),
-(2, 'Apteczka 2'),
-(3, 'Apteczka 3'),
-(4, 'Apteczka 4');
+(26, 'Apteczka1');
 
 -- --------------------------------------------------------
 
@@ -59,9 +56,7 @@ CREATE TABLE `apteczki_uzytkownicy` (
 --
 
 INSERT INTO `apteczki_uzytkownicy` (`id`, `id_uzytkownika`, `id_apteczki`) VALUES
-(1, 1, 2),
-(2, 1, 4),
-(9, 2, 2);
+(15, 1, 26);
 
 -- --------------------------------------------------------
 
@@ -4211,18 +4206,12 @@ CREATE TABLE `leki_w_apteczkach` (
 --
 
 INSERT INTO `leki_w_apteczkach` (`id_leku_w_apteczce`, `id_leku`, `Id_apteczki`, `data_waznosci`, `cena`) VALUES
-(1, 74, 2, '2020-08-04 00:00:00', 4.99),
-(2, 74, 2, '2020-08-04 00:00:00', 4.99),
-(3, 74, 2, '2020-08-04 00:00:00', 4.99),
-(4, 74, 2, '2020-08-04 00:00:00', 4.99),
-(5, 74, 2, '2020-08-04 00:00:00', 4.99),
-(6, 74, 2, '2020-08-04 00:00:00', 4.99),
-(7, 0, 2, '2020-04-30 00:00:00', 1.99),
-(8, 0, 2, '2020-04-30 00:00:00', 1.99),
-(9, 1, 2, '2020-04-29 00:00:00', 1.99),
-(10, 1, 2, '2020-04-29 00:00:00', 1.99),
-(11, 3651, 2, '2020-05-10 00:00:00', 100.99),
-(12, 3651, 2, '2020-05-10 00:00:00', 100.99);
+(27, 1, 26, '2020-05-29 00:00:00', 5),
+(29, 1, 26, '2020-05-29 00:00:00', 5),
+(30, 1, 26, '2020-05-29 00:00:00', 5),
+(31, 12, 26, '2020-05-22 00:00:00', 5.99),
+(32, 12, 26, '2020-05-22 00:00:00', 5.99),
+(33, 12, 26, '2020-05-22 00:00:00', 5.99);
 
 -- --------------------------------------------------------
 
@@ -4246,10 +4235,9 @@ CREATE TABLE `operacje` (
 --
 
 INSERT INTO `operacje` (`id_operacji`, `rodzaj`, `id_uzytkownika`, `id_leku`, `id_apteczki`, `ilosc`, `koszty`, `data`) VALUES
-(13, 'dodanie', 0, 74, 2, 6, 29.94, '2020-04-17 17:14:35'),
-(14, 'dodanie', 2, 0, 2, 2, 3.98, '2020-04-17 22:54:56'),
-(15, 'dodanie', 2, 1, 2, 2, 3.98, '2020-04-17 22:56:03'),
-(16, 'dodanie', 2, 3651, 2, 2, 201.98, '2020-04-17 23:03:37');
+(39, 'dodanie', 1, 1, 26, 4, 20, '2020-05-27 13:27:43'),
+(40, 'dodanie', 1, 12, 26, 3, 17.97, '2020-05-27 14:12:17'),
+(41, 'zazycie', 1, 1, 26, 1, 5, '2020-05-27 14:12:23');
 
 -- --------------------------------------------------------
 
@@ -4271,8 +4259,7 @@ CREATE TABLE `uzytkownicy` (
 --
 
 INSERT INTO `uzytkownicy` (`id_uzytkownika`, `imie`, `nazwisko`, `email`, `hashhaslo`, `prawa`) VALUES
-(1, 'Adrian', 'Pach', 'adrpach@student.agh.edu.pl', '$2y$10$to1QTEb3TLE3QglQaFmjOuHCCMOPteUHWBV7cY1DJOIYzYHf0Bwdq', 'admin'),
-(2, 'Pdran', 'Aach', 'padrian@onet.pl', '$2y$10$WjIpGGI4uMfPxa1vv7/2ielbvNR9/jRdpK5o8l1bMTJnMcOaRhuIa', 'uzytkownik');
+(1, 'Adrian', 'Pach', 'adrpach@student.agh.edu.pl', '$2y$10$to1QTEb3TLE3QglQaFmjOuHCCMOPteUHWBV7cY1DJOIYzYHf0Bwdq', 'admin');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -4288,7 +4275,10 @@ ALTER TABLE `apteczki`
 -- Indeksy dla tabeli `apteczki_uzytkownicy`
 --
 ALTER TABLE `apteczki_uzytkownicy`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_uzytkownika` (`id_uzytkownika`),
+  ADD KEY `id_apteczki` (`id_apteczki`),
+  ADD KEY `id_apteczki_2` (`id_apteczki`);
 
 --
 -- Indeksy dla tabeli `leki`
@@ -4300,13 +4290,18 @@ ALTER TABLE `leki`
 -- Indeksy dla tabeli `leki_w_apteczkach`
 --
 ALTER TABLE `leki_w_apteczkach`
-  ADD PRIMARY KEY (`id_leku_w_apteczce`);
+  ADD PRIMARY KEY (`id_leku_w_apteczce`),
+  ADD KEY `id_leku` (`id_leku`),
+  ADD KEY `Id_apteczki` (`Id_apteczki`);
 
 --
 -- Indeksy dla tabeli `operacje`
 --
 ALTER TABLE `operacje`
-  ADD PRIMARY KEY (`id_operacji`);
+  ADD PRIMARY KEY (`id_operacji`),
+  ADD KEY `id_uzytkownika` (`id_uzytkownika`),
+  ADD KEY `id_leku` (`id_leku`),
+  ADD KEY `id_apteczki` (`id_apteczki`);
 
 --
 -- Indeksy dla tabeli `uzytkownicy`
@@ -4322,13 +4317,13 @@ ALTER TABLE `uzytkownicy`
 -- AUTO_INCREMENT dla tabeli `apteczki`
 --
 ALTER TABLE `apteczki`
-  MODIFY `id_apteczki` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_apteczki` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT dla tabeli `apteczki_uzytkownicy`
 --
 ALTER TABLE `apteczki_uzytkownicy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT dla tabeli `leki`
@@ -4340,19 +4335,45 @@ ALTER TABLE `leki`
 -- AUTO_INCREMENT dla tabeli `leki_w_apteczkach`
 --
 ALTER TABLE `leki_w_apteczkach`
-  MODIFY `id_leku_w_apteczce` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_leku_w_apteczce` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT dla tabeli `operacje`
 --
 ALTER TABLE `operacje`
-  MODIFY `id_operacji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_operacji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT dla tabeli `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
-  MODIFY `id_uzytkownika` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_uzytkownika` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Ograniczenia dla zrzutów tabel
+--
+
+--
+-- Ograniczenia dla tabeli `apteczki_uzytkownicy`
+--
+ALTER TABLE `apteczki_uzytkownicy`
+  ADD CONSTRAINT `apteczki_uzytkownicy_ibfk_1` FOREIGN KEY (`id_uzytkownika`) REFERENCES `uzytkownicy` (`id_uzytkownika`),
+  ADD CONSTRAINT `apteczki_uzytkownicy_ibfk_2` FOREIGN KEY (`id_apteczki`) REFERENCES `apteczki` (`id_apteczki`);
+
+--
+-- Ograniczenia dla tabeli `leki_w_apteczkach`
+--
+ALTER TABLE `leki_w_apteczkach`
+  ADD CONSTRAINT `leki_w_apteczkach_ibfk_1` FOREIGN KEY (`id_leku`) REFERENCES `leki` (`id_leku`),
+  ADD CONSTRAINT `leki_w_apteczkach_ibfk_2` FOREIGN KEY (`Id_apteczki`) REFERENCES `apteczki` (`id_apteczki`);
+
+--
+-- Ograniczenia dla tabeli `operacje`
+--
+ALTER TABLE `operacje`
+  ADD CONSTRAINT `operacje_ibfk_1` FOREIGN KEY (`id_uzytkownika`) REFERENCES `uzytkownicy` (`id_uzytkownika`),
+  ADD CONSTRAINT `operacje_ibfk_2` FOREIGN KEY (`id_leku`) REFERENCES `leki` (`id_leku`),
+  ADD CONSTRAINT `operacje_ibfk_3` FOREIGN KEY (`id_apteczki`) REFERENCES `apteczki` (`id_apteczki`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
